@@ -7,7 +7,19 @@ jobs:
     name: Access repos
     runs-on: ubuntu-18.04
     steps:
-    - uses: actions/checkout@v2
-      with:
-        repository: FilipTelia/ghatest
-        token: ${{ secrets.TOKEN }}
+      - name: Authenticate with GitHub App
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.PRIV_KEY}}" \
+            -H "Accept: application/vnd.github.machine-man-preview+json" \
+            https://api.github.com/app/installations/${{ secrets.GITHUB_APP_INSTALLATION_ID }}/access_tokens \
+            | jq -r '.token' > token.txt
+          
+          echo "GITHUB_APP_INSTALLATION_TOKEN=$(cat token.txt)" >> $GITHUB_ENV
+
+      - name: Checkout private repo 1
+        uses: actions/checkout@v2
+        with:
+          repository: myorg/privaterepo1
+          ref: main
+          token: ${{ secrets.GITHUB_APP_INSTALLATION_TOKEN }}
