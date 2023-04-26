@@ -8,5 +8,3 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v1
-    - name: Access repo 1
-    - name: Access repo 2
