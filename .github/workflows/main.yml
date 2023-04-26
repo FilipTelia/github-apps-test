@@ -1,0 +1,12 @@
+name: Testing GH Apps access to other repos
+on:
+  workflow_dispatch:
+
+jobs:
+  my_job:
+    name: Access repos
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v1
+    - name: Access repo 1
+    - name: Access repo 2
