@@ -10,4 +10,4 @@ jobs:
     - uses: actions/checkout@v2
       with:
         repository: FilipTelia/ghatest
-        token: ${{ secrets.TOKEn }}
+        token: ${{ secrets.TOKEN }}
