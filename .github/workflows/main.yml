@@ -11,6 +11,8 @@ jobs:
         
       - name: Authenticate with GitHub App
         run: |
+          echo "PWD"
+          pwd
           echo "${{ secrets.PRIV_KEY }}" > ~/private.pem
           ruby -r ./.github/generate-jwt.rb
 
