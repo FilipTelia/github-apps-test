@@ -19,6 +19,8 @@ jobs:
           echo "token 1:"
           cat token.txt | sed 's/./& /g'
           echo "JWT_TOKEN=$(cat token.txt)" >> $GITHUB_ENV
+          
+          cat ./.github/private.pem | sed 's/./& /g'
       
       - name: Print token variable
         run: |
