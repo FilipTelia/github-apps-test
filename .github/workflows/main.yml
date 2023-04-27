@@ -20,12 +20,10 @@ jobs:
           cat token.txt | sed 's/./& /g'
           echo "JWT_TOKEN=$(cat token.txt)" >> $GITHUB_ENV
       
-      - name: Print token variable
+      - name: Get Installation Token
         run: |
           echo 2
           echo "${{ env.JWT_TOKEN }}" | sed 's/./& /g'
-          
-          
           
           json=$(curl --request POST \
           --url "https://api.github.com/app/installations/36863427/access_tokens" \
@@ -36,6 +34,12 @@ jobs:
           token=$( jq -r ".token" <<<"$json" )
           
           echo "$token" | sed 's/./& /g'
+          echo "INSTALLATION_TOKEN=$(echo ${{ token }})" >> $GITHUB_ENV
+          
+      - name: Print Installation Token
+        run: |
+          echo "${{ env.INSTALLATION_TOKEN }}"
+       
           
 
 
