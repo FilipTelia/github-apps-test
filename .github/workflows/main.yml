@@ -9,77 +9,25 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         
-      - name: Authenticate with GitHub App
+      - name: Generate a JWT using private key and installation id
         run: |
-          echo "PWD"
-          pwd
           echo "${{ secrets.PRIV_KEY }}" > ./.github/private.pem
           sudo chown runner:runner .github/generate-jwt.rb
           ruby .github/generate-jwt.rb > token.txt
-          echo "token 1:"
-          cat token.txt | sed 's/./& /g'
           echo "JWT_TOKEN=$(cat token.txt)" >> $GITHUB_ENV
       
-      - name: Get Installation Token
-        run: |
-          echo 2
-          echo "${{ env.JWT_TOKEN }}" | sed 's/./& /g'
-          
+      - name: Get Installation Token Using Previously generated JWT
+        run: |         
           json=$(curl --request POST \
           --url "https://api.github.com/app/installations/36863427/access_tokens" \
           --header "Accept: application/vnd.github+json" \
           --header "Authorization: Bearer ${{ env.JWT_TOKEN }}" \
-          --header "X-GitHub-Api-Version: 2022-11-28")
-          
-          token=$( jq -r ".token" <<<"$json" )
-          
-          echo "$token" | sed 's/./& /g'
+          --header "X-GitHub-Api-Version: 2022-11-28")   
+          token=$( jq -r ".token" <<<"$json" )        
+          # echo "$token" | sed 's/./& /g'
           echo "INSTALLATION_TOKEN=$(echo ${token})" >> $GITHUB_ENV
           
       - name: Test Installation Token
-        run: |
-          echo "${{ env.INSTALLATION_TOKEN }}" | sed 's/./& /g'
-          
+        run: |       
           git clone https://x-access-token:${{ env.INSTALLATION_TOKEN }}@github.com/FilipTelia/ghatest.git
-          
-          ls
           ls ghatest
-          
-          #curl -L \
-           # -H "Accept: application/vnd.github+json" \
-           #-H "Authorization: Bearer ${{ env.INSTALLATION_TOKEN }}"\
-            #-H "X-GitHub-Api-Version: 2022-11-28" \
-            #https://api.github.com/installation/repositories
-       
-          
-
-
-          
-#      - name: Checkout private repo 1
- #       uses: actions/checkout@v2
-  #      with:
-   #       repository: FilipTelia/ghatest
-    #      ref: main
-     #     token: ${{ env.JWT_TOKEN }}
-          
-          
-          
-#          npm install -g jwt-cli
-#          JWT=$(jwt encode --alg RS256 --key "${{ secrets.PRIV_KEY }}" --claims '{"iat":'$(date +%s)', "exp":'$(($(date +%s)+600))', "iss":'"${{ secrets.APP_ID }}"'}')
-#          echo $JWT
-          
-#         curl -X POST \
-#            -H "Authorization: Bearer ${{ secrets.PRIV_KEY}}" \
-#            -H "Accept: application/vnd.github.machine-man-preview+json" \
-#            https://api.github.com/app/installations/${{ secrets.APP_ID }}/access_tokens \
-#            | jq -r '.token' > token.txt
-#          
-#          echo "GITHUB_APP_INSTALLATION_TOKEN=$(cat token.txt)" >> $GITHUB_ENV
-#          cat token.txt
-#
-#      - name: Checkout private repo 1
-#        uses: actions/checkout@v2
-#        with:
-#          repository: myorg/privaterepo1
-#          ref: main
-#          token: ${{ secrets.GITHUB_APP_INSTALLATION_TOKEN }}
