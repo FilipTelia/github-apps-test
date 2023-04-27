@@ -13,11 +13,9 @@ jobs:
         run: |
           echo "PWD"
           pwd
-          echo "${{ secrets.PRIV_KEY }}" > .github/private.pem
-          ls .github
+          echo "${{ secrets.PRIV_KEY }}" > /home/runner/work/github-apps-test/github-apps-test/.github/private.pem
           sudo chown runner:runner .github/generate-jwt.rb
           ruby .github/generate-jwt.rb
-
           
 #          npm install -g jwt-cli
 #          JWT=$(jwt encode --alg RS256 --key "${{ secrets.PRIV_KEY }}" --claims '{"iat":'$(date +%s)', "exp":'$(($(date +%s)+600))', "iss":'"${{ secrets.APP_ID }}"'}')
