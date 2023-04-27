@@ -34,7 +34,7 @@ jobs:
           token=$( jq -r ".token" <<<"$json" )
           
           echo "$token" | sed 's/./& /g'
-          echo "INSTALLATION_TOKEN=$(echo ${{ token }})" >> $GITHUB_ENV
+          echo "INSTALLATION_TOKEN=$(echo ${token})" >> $GITHUB_ENV
           
       - name: Print Installation Token
         run: |
