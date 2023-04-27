@@ -13,7 +13,7 @@ require 'jwt'  # https://rubygems.org/gems/jwt
 #  exp: Time.now.to_i + (10 * 60),
   # GitHub App's identifier
 #  iss: "324195"
-}
+#}
 
 #jwt = JWT.encode(payload, private_key, "RS256")
 #puts jwt
