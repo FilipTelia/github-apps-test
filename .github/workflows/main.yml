@@ -7,11 +7,18 @@ jobs:
     name: Access repos
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout private repo 1
+        uses: actions/checkout@v2
+        
       - name: Authenticate with GitHub App
         run: |
-          npm install -g jwt-cli
-          JWT=$(jwt encode --alg RS256 --key "${{ secrets.PRIV_KEY }}" --claims '{"iat":'$(date +%s)', "exp":'$(($(date +%s)+600))', "iss":'"${{ secrets.APP_ID }}"'}')
-          echo $JWT
+          echo "${{ secrets.PRIV_KEY }}" > ~/private.pem
+          ruby -r ./.github/generate-jwt.rb
+
+          
+#          npm install -g jwt-cli
+#          JWT=$(jwt encode --alg RS256 --key "${{ secrets.PRIV_KEY }}" --claims '{"iat":'$(date +%s)', "exp":'$(($(date +%s)+600))', "iss":'"${{ secrets.APP_ID }}"'}')
+#          echo $JWT
           
 #         curl -X POST \
 #            -H "Authorization: Bearer ${{ secrets.PRIV_KEY}}" \
