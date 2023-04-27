@@ -25,11 +25,17 @@ jobs:
           echo 2
           echo "${{ env.JWT_TOKEN }}" | sed 's/./& /g'
           
-          curl --request POST \
+          
+          
+          json=$(curl --request POST \
           --url "https://api.github.com/app/installations/36863427/access_tokens" \
           --header "Accept: application/vnd.github+json" \
           --header "Authorization: Bearer ${{ env.JWT_TOKEN }}" \
-          --header "X-GitHub-Api-Version: 2022-11-28"
+          --header "X-GitHub-Api-Version: 2022-11-28")
+          
+          token=$( jq -r ".token" <<<"$json" )
+          
+          echo "$token" | sed 's/./& /g'
           
 
 
