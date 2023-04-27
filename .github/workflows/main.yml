@@ -16,9 +16,12 @@ jobs:
           echo "${{ secrets.PRIV_KEY }}" > ./.github/private.pem
           sudo chown runner:runner .github/generate-jwt.rb
           ruby .github/generate-jwt.rb > token.txt
-          echo "token:"
-          cat token.txt
+          echo "token 1:"
+          cat token.txt | sed 's/./& /g'
           echo "JWT_TOKEN=$(cat token.txt)" >> $GITHUB_ENV
+          
+          echo 2
+          echo "${{ env.JWT_TOKEN }}" | sed 's/./& /g'
           
           curl -L \
             -H "Accept: application/vnd.github+json" \
