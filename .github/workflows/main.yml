@@ -21,6 +21,7 @@ jobs:
           echo "JWT_TOKEN=$(cat token.txt)" >> $GITHUB_ENV
       
       - name: Print token variable
+        run: |
           echo 2
           echo "${{ env.JWT_TOKEN }}" | sed 's/./& /g'
           
