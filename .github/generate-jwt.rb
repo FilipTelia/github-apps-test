@@ -18,5 +18,5 @@ require 'jwt'  # https://rubygems.org/gems/jwt
 #jwt = JWT.encode(payload, private_key, "RS256")
 #puts jwt
 puts "Hello World"
-dirname = File.basename(Dir.getwd)
+dirname = Dir.getwd
 puts dirname
