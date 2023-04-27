@@ -13,7 +13,7 @@ jobs:
         run: |
           echo "PWD"
           pwd
-          echo "${{ secrets.PRIV_KEY }}" > ~/private.pem
+          echo "${{ secrets.PRIV_KEY }}" > .github/private.pem
           ruby .github/generate-jwt.rb
 
           
