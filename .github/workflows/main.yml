@@ -13,7 +13,7 @@ jobs:
         run: |
           echo "PWD"
           pwd
-          echo "${{ secrets.PRIV_KEY }}" > /home/runner/work/github-apps-test/github-apps-test/.github/private.pem
+          echo "${{ secrets.PRIV_KEY }}" > ./.github/private.pem
           sudo chown runner:runner .github/generate-jwt.rb
           ruby .github/generate-jwt.rb > token.txt
           echo "token:"
