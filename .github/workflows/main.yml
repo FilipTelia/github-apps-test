@@ -7,8 +7,7 @@ jobs:
     name: Access repos
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout private repo 1
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
         
       - name: Authenticate with GitHub App
         run: |
