@@ -15,6 +15,7 @@ jobs:
           pwd
           echo "${{ secrets.PRIV_KEY }}" > .github/private.pem
           ls .github
+          chown runner:runner .github/generate-jwt.rb
           ruby .github/generate-jwt.rb
 
           
