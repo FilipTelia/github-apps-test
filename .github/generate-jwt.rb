@@ -20,5 +20,3 @@ iss: app_id
 
 jwt = JWT.encode(payload, private_key, "RS256")
 puts jwt
-puts "APP ID:"
-puts app_id
