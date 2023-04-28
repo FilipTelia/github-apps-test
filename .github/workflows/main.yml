@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 env:
   USERNAME: FilipTelia
-  REPO_NAME: ghatest
+  REPO_NAME: rel-dep-test
 
 jobs:
   my_job:
