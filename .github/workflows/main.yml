@@ -14,22 +14,20 @@ jobs:
           echo "${{ secrets.PRIV_KEY }}" > .github/private.pem
           sudo chown runner:runner .github/generate-jwt.rb
           ruby .github/generate-jwt.rb ${{ secrets.APP_ID }} > token.txt
-          echo "Printing token"
-          cat token.txt
-#          echo "JWT_TOKEN=$(cat token.txt)" >> $GITHUB_ENV
+          echo "JWT_TOKEN=$(cat token.txt)" >> $GITHUB_ENV
       
-#      - name: Get Installation Token Using Previously generated JWT
-#        run: |         
-#          json=$(curl --request POST \
-#          --url "https://api.github.com/app/installations/36863427/access_tokens" \
-#          --header "Accept: application/vnd.github+json" \
-#          --header "Authorization: Bearer ${{ env.JWT_TOKEN }}" \
-#          --header "X-GitHub-Api-Version: 2022-11-28")   
-#          token=$( jq -r ".token" <<<"$json" )        
-#          # echo "$token" | sed 's/./& /g'
-#          echo "INSTALLATION_TOKEN=$(echo ${token})" >> $GITHUB_ENV
-#          
-#      - name: Test Installation Token
-#        run: |       
-#          git clone https://x-access-token:${{ env.INSTALLATION_TOKEN }}@github.com/FilipTelia/ghatest.git
-#          ls ghatest
+      - name: Get Installation Token Using Previously generated JWT
+        run: |         
+          json=$(curl --request POST \
+          --url "https://api.github.com/app/installations/36863427/access_tokens" \
+          --header "Accept: application/vnd.github+json" \
+          --header "Authorization: Bearer ${{ env.JWT_TOKEN }}" \
+          --header "X-GitHub-Api-Version: 2022-11-28")   
+          token=$( jq -r ".token" <<<"$json" )        
+          # echo "$token" | sed 's/./& /g'
+          echo "INSTALLATION_TOKEN=$(echo ${token})" >> $GITHUB_ENV
+          
+      - name: Test Installation Token
+        run: |       
+          git clone https://x-access-token:${{ env.INSTALLATION_TOKEN }}@github.com/FilipTelia/ghatest.git
+          ls ghatest
