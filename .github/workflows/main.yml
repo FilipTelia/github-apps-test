@@ -13,7 +13,7 @@ jobs:
         run: |
           echo "${{ secrets.PRIV_KEY }}" > .github/private.pem
           sudo chown runner:runner .github/generate-jwt.rb
-          ruby .github/generate-jwt.rb ${{ secret.APP_ID }} > token.txt
+          ruby .github/generate-jwt.rb ${{ secrets.APP_ID }} > token.txt
           echo "Printing token"
           cat token.txt
 #          echo "JWT_TOKEN=$(cat token.txt)" >> $GITHUB_ENV
