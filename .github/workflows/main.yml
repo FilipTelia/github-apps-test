@@ -33,4 +33,4 @@ jobs:
       - name: Test Installation Token
         run: |       
           git clone https://x-access-token:${{ env.INSTALLATION_TOKEN }}@github.com/${{ env.USERNAME }}/${{ env.REPO_NAME }}.git
-          ls ghatest
+          ls ${{ env.REPO_NAME }}
