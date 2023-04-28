@@ -12,17 +12,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         
-      - name: Generate a JWT using private key and installation id
+      - name: Generate a JWT using private key and app id
         run: |
-          echo "${{ secrets.PRIV_KEY }}" > .github/private.pem
+          echo "${{ secrets.PRIVATE_KEY }}" > .github/private.pem
           sudo chown runner:runner .github/generate-jwt.rb
           ruby .github/generate-jwt.rb ${{ secrets.APP_ID }} > token.txt
           echo "JWT_TOKEN=$(cat token.txt)" >> $GITHUB_ENV
       
-      - name: Get Installation Token Using Previously generated JWT
+      - name: Get Installation Token Using Previously generated JWT and installation id
         run: |         
           json=$(curl --request POST \
-          --url "https://api.github.com/app/installations/36863427/access_tokens" \
+          --url "https://api.github.com/app/installations/${{ secrets.INSTALLATION_ID }}/access_tokens" \
           --header "Accept: application/vnd.github+json" \
           --header "Authorization: Bearer ${{ env.JWT_TOKEN }}" \
           --header "X-GitHub-Api-Version: 2022-11-28")   
