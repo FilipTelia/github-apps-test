@@ -1,6 +1,9 @@
 name: Testing GH Apps access to other repos
 on:
   workflow_dispatch:
+env:
+  USERNAME: FilipTelia
+  REPO_NAME: ghatest
 
 jobs:
   my_job:
@@ -29,5 +32,5 @@ jobs:
           
       - name: Test Installation Token
         run: |       
-          git clone https://x-access-token:${{ env.INSTALLATION_TOKEN }}@github.com/FilipTelia/ghatest.git
+          git clone https://x-access-token:${{ env.INSTALLATION_TOKEN }}@github.com/${{ env.USERNAME }}/${{ env.REPO_NAME }}.git
           ls ghatest
