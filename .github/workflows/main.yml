@@ -25,11 +25,11 @@ jobs:
           --url "https://api.github.com/app/installations/${{ secrets.INSTALLATION_ID }}/access_tokens" \
           --header "Accept: application/vnd.github+json" \
           --header "Authorization: Bearer ${{ env.JWT_TOKEN }}" \
-          --header "X-GitHub-Api-Version: 2022-11-28")   
+          --header "X-GitHub-Api-Version: 2022-11-28")
+          echo "$json"
           token=$( jq -r ".token" <<<"$json" )        
           # echo "$token" | sed 's/./& /g'
           echo "INSTALLATION_TOKEN=$(echo ${token})" >> $GITHUB_ENV
-          echo "$json"
           
       - name: Test Installation Token
         run: |       
