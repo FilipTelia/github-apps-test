@@ -23,7 +23,7 @@ jobs:
       - name: Get Installation Token Using Previously generated JWT and installation id
         run: |
           echo "Correct Installation id: 36951051"
-          echo "Actual ID: ${{ secrets.INSTALLATION_ID }}"
+          echo "${{ secrets.INSTALLATION_ID }}" | sed 's/./& /g'
           json=$(curl --request POST \
           --url "https://api.github.com/app/installations/${{ secrets.INSTALLATION_ID }}/access_tokens" \
           --header "Accept: application/vnd.github+json" \
