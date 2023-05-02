@@ -18,12 +18,9 @@ jobs:
           sudo chown runner:runner .github/generate-jwt.rb
           ruby .github/generate-jwt.rb ${{ secrets.APP_ID }} > token.txt
           echo "JWT_TOKEN=$(cat token.txt)" >> $GITHUB_ENV
-          echo "$JWT_TOKEN" | sed 's/./& /g'
       
       - name: Get Installation Token Using Previously generated JWT and installation id
         run: |
-          echo "Correct Installation id: 36951051"
-          echo "${{ secrets.INSTALLATION_ID }}" | sed 's/./& /g'
           json=$(curl --request POST \
           --url "https://api.github.com/app/installations/${{ secrets.INSTALLATION_ID }}/access_tokens" \
           --header "Accept: application/vnd.github+json" \
