@@ -7,4 +7,4 @@ Github Actions is used to test the authentication processes. The workflow is loc
 
 The script generate-jwt.rb in .github/ is used by the workflow to generate a JSON Web Token.
 
-The test if the authentication is successful, the workflow lists all the repos the App has access to and then clones a private repo that it has access to. 
+To test if the authentication is successful, the workflow lists all the repos the App has access to and then clones a private repo that it has access to. 
