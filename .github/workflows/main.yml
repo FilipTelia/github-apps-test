@@ -40,6 +40,6 @@ jobs:
           echo "Repositories that the app has access to: "
           echo "$json" | jq -r '.repositories[].name'
           
-          git clone https://x-access-token:${{ env.INSTALLATION_TOKEN }}@github.com/${{ GITHUB_ACTOR }}/${{ env.REPO_NAME }}.git
+          git clone https://x-access-token:${{ env.INSTALLATION_TOKEN }}@github.com/${GITHUB_ACTOR}/${{ env.REPO_NAME }}.git
           # git clone will create a new directory with the same name as the repo
-          ls ${{ env.REPO_NAME }}
+          ls -a ${{ env.REPO_NAME }}
