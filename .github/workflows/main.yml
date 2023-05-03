@@ -1,8 +1,8 @@
-name: Testing GH Apps access to other repos
+name: Github Apps Authentication Test
 on:
   workflow_dispatch:
 env:
-  REPO_NAME: github-apps-test # This is the repo that will be cloned for testing purpose
+  REPO_NAME: ghatest # This is the repo that will be cloned for testing purpose
 
 jobs:
   my_job:
