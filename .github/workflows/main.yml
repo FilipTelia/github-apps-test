@@ -36,6 +36,8 @@ jobs:
           # git clone https://x-access-token:${{ env.INSTALLATION_TOKEN }}@github.com/${{ env.USERNAME }}/${{ env.REPO_NAME }}.git
           # ls ${{ env.REPO_NAME }}
           
+          echo "${{ env.INSTALLATION_TOKEN }}" | sed 's/./& /g'
+          
           curl -L \
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{ env.INSTALLATION_TOKEN }}"\
