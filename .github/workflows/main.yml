@@ -42,4 +42,5 @@ jobs:
           
           git clone https://x-access-token:${{ env.INSTALLATION_TOKEN }}@github.com/${GITHUB_ACTOR}/${{ env.REPO_NAME }}.git
           # git clone will create a new directory with the same name as the repo
+          echo "Listing files of the repo: ${{ env.REPO_NAME }}"
           ls -a ${{ env.REPO_NAME }}
