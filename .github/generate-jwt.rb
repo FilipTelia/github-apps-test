@@ -3,11 +3,11 @@ require 'jwt'  # https://rubygems.org/gems/jwt
 
 app_id = ARGV[0]
 
-# Private key contents
+# Read the private key file
 private_pem = File.read(".github/private.pem")
 private_key = OpenSSL::PKey::RSA.new(private_pem)
 
-# Generate the JWT
+# Configure the content of the JWT
 payload = {
   # issued at time, 60 seconds in the past to allow for clock drift
 iat: Time.now.to_i - 60,
@@ -15,8 +15,9 @@ iat: Time.now.to_i - 60,
 exp: Time.now.to_i + (10 * 60),
   # GitHub App's identifier
 iss: app_id
-# iss: "324195"
 }
 
+# Generate the JWT
 jwt = JWT.encode(payload, private_key, "RS256")
+# Print the JWT
 puts jwt
